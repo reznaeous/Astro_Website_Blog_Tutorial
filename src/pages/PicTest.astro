@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import Modal from '../components/Modal.astro';
+
+const pageTitle = "Image Test";
+import testImage from '../assets/post-1.jpg';
+---
+<BaseLayout pageTitle={pageTitle}>
+  <h2>Testing image import ...</h2>
+  <div class="image-container">
+    <Image src={ testImage } alt="Test image" class="image-item" />
+  </div>
+  <h2>
+    Testing dialog for pictures
+  </h2>
+  <div>
+    <Modal id="dialog" open="Open modal">
+      <main slot="main">
+        <p>Some extra content you would like here</p>
+        <hr />
+        <img width="60" height="80" src="/public/logo.svg" alt="Astro logo" />
+      </main>
+      <button slot="close">Close modal</button>
+    </Modal>
+    
+  </div>
+</BaseLayout>
+
+<style>
+  .image-container {
+    width: 75%;
+  }
+
+  .image-item {
+    max-width: 100%;
+  }
+</style>

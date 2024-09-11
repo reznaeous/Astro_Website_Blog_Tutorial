@@ -1,0 +1,30 @@
+---
+const { btnText, dialogText } = Astro.props;
+---
+
+<p><button id="btnD">{btnText}</button></p>
+
+<dialog id="pic_dialog" class="pic_dialog">
+  <p>{dialogText}</p>
+  <button class="btnClose">Close dialog</button>
+</dialog>
+
+<script>
+  document.getElementById('btnD').addEventListener('click', openDialog);
+
+  function openDialog(ev) {
+  const dialog = document.getElementById('pic_dialog');
+  dialog.showModal();
+  dialog.addEventListener('close', (ev) => {
+    let d = ev.target;
+    console.log(d.returnValue);
+    console.log(d.open);
+  });
+
+  let btn = dialog.querySelector('.btnClose');
+  btn.addEventListener('click', () => {
+    dialog.close(123);
+  });
+}
+
+</script>
