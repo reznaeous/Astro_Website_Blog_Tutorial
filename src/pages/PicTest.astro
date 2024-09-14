@@ -1,29 +1,61 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { Image } from 'astro:assets';
-import Modal from '../components/Modal.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import { Picture } from "astro:assets";
+import Modal from "../components/Modal.astro";
 
 const pageTitle = "Image Test";
-import testImage from '../assets/post-1.jpg';
+import testImage from "../assets/post-1.jpg";
 ---
+
 <BaseLayout pageTitle={pageTitle}>
   <h2>Testing image import ...</h2>
-  <div class="image-container">
-    <Image src={ testImage } alt="Test image" class="image-item" />
+  <!-- <div class="image-container"> -->
+  <div>
+    <Image
+      src={testImage}
+      alt="Test image"
+      width="1200"
+      height="600"
+      class="image-item"
+    />
   </div>
-  <h2>
-    Testing dialog for pictures
-  </h2>
+  <h2>Testing dialog for pictures</h2>
   <div>
     <Modal id="dialog" open="Open modal">
       <main slot="main">
         <p>Some extra content you would like here</p>
         <hr />
-        <img width="60" height="80" src="/public/logo.svg" alt="Astro logo" />
+        <!-- <Image src={ testImage } alt="Test image" width="1200" height="600" class="image-item" /> -->
+        <Image
+          src={testImage}
+          alt="Test image"
+          class="image-item"
+          widths={[240, 540, 720, testImage.width]}
+          sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${testImage.width}px`}
+        />
       </main>
       <button slot="close">Close modal</button>
     </Modal>
-    
+    <Modal id="dialog2" open="Open modal2">
+      <main slot="main">
+        <p>Some other extra content you would like here</p>
+        <hr />
+        <!-- <Picture src={ testImage } alt="Test image" width="1200" height="600" class="image-item" /> -->
+        <Picture src={testImage} alt="Test image" class="image-item" />
+      </main>
+      <button slot="close">Close modal</button>
+    </Modal>
+    <Modal id="dialog3" open="Open modal3">
+      <main slot="main">
+        <p>Yet some more extra content you would like here</p>
+        <hr />
+        <figure>
+          <img src="/post-1.jpg" alt="Test image" class="image-item" />
+        </figure>
+      </main>
+      <button slot="close">Close modal</button>
+    </Modal>
   </div>
 </BaseLayout>
 
@@ -34,5 +66,7 @@ import testImage from '../assets/post-1.jpg';
 
   .image-item {
     max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
   }
 </style>
